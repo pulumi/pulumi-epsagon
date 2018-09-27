@@ -31,15 +31,28 @@ export interface EpsagonConfig {
 export function install(pul: typeof pulumi, epsagonConfig: EpsagonConfig = {}) {
     const origSerializeFunction = pul.runtime.serializeFunction
     pul.runtime.serializeFunction = function (func, args) {
-        const wrapper = () => {
-            require('@epsagon/epsagon').init({
-                token,
-                appName: 'pulumi',
-                metadataOnly: false,
-                ...epsagonConfig
-            })
-            return require('@epsagon/epsagon').lambdaWrapper(func)
-        }
+        const wrapper =
+            args.isFactoryFunction
+                ? () => {
+                    require('@epsagon/epsagon').init({
+                        token,
+                        appName: 'pulumi',
+                        metadataOnly: false,
+                        ...epsagonConfig
+                    })
+
+                    return require('@epsagon/epsagon').lambdaWrapper(func())
+                }
+                : () => {
+                    require('@epsagon/epsagon').init({
+                        token,
+                        appName: 'pulumi',
+                        metadataOnly: false,
+                        ...epsagonConfig
+                    })
+
+                    return require('@epsagon/epsagon').lambdaWrapper(func)
+                }
         return origSerializeFunction(wrapper, {...args, isFactoryFunction: true})
     }
     const originComputeCodePaths = pul.runtime.computeCodePaths
