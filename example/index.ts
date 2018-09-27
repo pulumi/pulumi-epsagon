@@ -8,8 +8,12 @@ epsagon.install(pulumi, {appName: 'my-example'})
 
 // Create a function
 const hello = new aws.serverless.Function('my-function', {
-    func: (event, context) => {
+    func: async (event, context) => {
         console.log(event)
+        return {
+            statusCode: 200,
+            body: 'Hello world'
+        }
     },
     policies: ['arn:aws:iam::aws:policy/AWSLambdaFullAccess']
 })
