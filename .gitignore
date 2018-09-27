@@ -1,0 +1,4 @@
+node_modules/
+/.pulumi/
+Pulumi.*.yaml
+yarn.lock

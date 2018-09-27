@@ -1,0 +1,13 @@
+{
+  "name": "example",
+  "devDependencies": {
+    "@types/node": "latest"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "latest",
+    "@pulumi/aws": "latest",
+    "@pulumi/aws-serverless": "latest",
+    "@pulumi/epsagon": "./..",
+    "@epsagon/epsagon": "^0.1.18"
+  }
+}
