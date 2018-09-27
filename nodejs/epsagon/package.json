@@ -1,0 +1,22 @@
+{
+  "name": "@pulumi/epsagon",
+  "version": "${VERSION}",
+  "description": "This pacakge provides Epsagon integration with Pulumi programs.",
+  "license": "Apache-2.0",
+  "keywords": [
+    "pulumi",
+    "epsagon",
+    "pulumi-epsagon"
+  ],
+  "homepage": "https://github.com/pulumi/pulumi-epsagon#readme",
+  "repository": "https://github.com/pulumi/pulumi-epsagon.git",
+  "author": "Pulumi",
+  "bugs": {
+    "url": "https://github.com/pulumi/pulumi-epsagon/issues"
+  },
+  "dependencies": {
+    "@epsagon/epsagon": "^0.1.18",
+    "@pulumi/pulumi": "latest"
+  },
+  "devDependencies": {}
+}

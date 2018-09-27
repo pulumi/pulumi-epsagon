@@ -7,7 +7,9 @@
     "@pulumi/pulumi": "latest",
     "@pulumi/aws": "latest",
     "@pulumi/aws-serverless": "latest",
-    "@pulumi/epsagon": "./..",
     "@epsagon/epsagon": "^0.1.18"
+  },
+  "peerDependencies": {
+    "@pulumi/pulumi-epsagon": "latest"
   }
 }
