@@ -7,8 +7,8 @@ functions generated from JavaScript callbacks in the Pulumi program will automat
 const aws = require("@pulumi/aws");
 const serverless = require("@pulumi/aws-serverless");
 
-// Load the Pulumi IO| integration package
-require("@pulumi/iopipe");
+// Load the Pulumi Epsagon integration package
+require("@pulumi/epsagon");
 
 // Create a bucket and a function to log new object uploads
 const bucket = new aws.s3.Bucket("my-bucket");
