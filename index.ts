@@ -30,7 +30,7 @@ export interface EpsagonConfig {
 // around all serialized Pulumi functions.
 export function install(pul: typeof pulumi, epsagonConfig: EpsagonConfig = {}) {
     const origSerializeFunction = pul.runtime.serializeFunction
-    pul.runtime.serializeFunction = async function (func, args) {
+    pul.runtime.serializeFunction = function (func, args) {
         const wrapper = () => {
             require('@epsagon/epsagon').init({
                 token,
@@ -40,13 +40,10 @@ export function install(pul: typeof pulumi, epsagonConfig: EpsagonConfig = {}) {
             })
             return require('@epsagon/epsagon').lambdaWrapper(func)
         }
-        const serialized = await origSerializeFunction(wrapper, {...args, isFactoryFunction: true})
-        return {
-            ...serialized
-        }
+        return origSerializeFunction(wrapper, {...args, isFactoryFunction: true})
     }
     const originComputeCodePaths = pul.runtime.computeCodePaths
-    pul.runtime.computeCodePaths = async function (extraIncludePaths, extraIncludePackages = [], extraExcludePackages) {
+    pul.runtime.computeCodePaths = function (extraIncludePaths, extraIncludePackages = [], extraExcludePackages) {
         // Make sure that `@epsagon/epsagon` is included in the uploaded package.
         const newExtraIncludePackages = [...extraIncludePackages, '@epsagon/epsagon']
         return originComputeCodePaths(extraIncludePaths, newExtraIncludePackages, extraExcludePackages)
