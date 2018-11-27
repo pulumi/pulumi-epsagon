@@ -15,7 +15,7 @@
     "url": "https://github.com/pulumi/pulumi-epsagon/issues"
   },
   "dependencies": {
-    "@epsagon/epsagon": "^0.1.18",
+    "epsagon": "^1.4.0",
     "@pulumi/pulumi": "latest"
   },
   "devDependencies": {}

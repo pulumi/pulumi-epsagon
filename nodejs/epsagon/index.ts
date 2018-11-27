@@ -41,10 +41,10 @@ export function install(pul: typeof pulumi, epsagonConfig: EpsagonConfig = {}) {
                         ...epsagonConfig,
                     });
 
-                    return require("@epsagon/epsagon").lambdaWrapper(func());
+                    return require("epsagon").lambdaWrapper(func());
                 }
                 : () => {
-                    require("@epsagon/epsagon").init({
+                    require("epsagon").init({
                         token,
                         appName: "pulumi",
                         metadataOnly: false,
