@@ -18,5 +18,8 @@
     "epsagon": "^1.4.0",
     "@pulumi/pulumi": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^8.0.26",
+    "tslint": "^5.11.0"
+  }
 }

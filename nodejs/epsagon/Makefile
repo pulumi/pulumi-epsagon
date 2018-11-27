@@ -15,7 +15,7 @@ build::
 	cp ../../README.md ../../LICENSE bin/
 
 lint::
-	tslint -c ../tslint.json -p tsconfig.json
+	tslint -c ./tslint.json -p tsconfig.json
 
 # later when we have tests
 #test_all::
