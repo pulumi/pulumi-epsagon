@@ -34,13 +34,12 @@ export function install(pul: typeof pulumi, epsagonConfig: EpsagonConfig = {}) {
         const wrapper =
             args && args.isFactoryFunction
                 ? () => {
-                    require("@epsagon/epsagon").init({
+                    require("epsagon").init({
                         token,
                         appName: "pulumi",
                         metadataOnly: false,
                         ...epsagonConfig,
                     });
-
                     return require("epsagon").lambdaWrapper(func());
                 }
                 : () => {
@@ -50,16 +49,26 @@ export function install(pul: typeof pulumi, epsagonConfig: EpsagonConfig = {}) {
                         metadataOnly: false,
                         ...epsagonConfig,
                     });
-
-                    return require("@epsagon/epsagon").lambdaWrapper(func);
+                    return require("epsagon").lambdaWrapper(func);
                 };
         return origSerializeFunction(wrapper, {...args, isFactoryFunction: true});
     };
     const originComputeCodePaths = pul.runtime.computeCodePaths;
-    pul.runtime.computeCodePaths = function (extraIncludePaths, extraIncludePackages = [], extraExcludePackages) {
-        // Make sure that `@epsagon/epsagon` is included in the uploaded package.
-        const newExtraIncludePackages = [...extraIncludePackages, "@epsagon/epsagon"];
-        return originComputeCodePaths(extraIncludePaths, newExtraIncludePackages, extraExcludePackages);
+    pul.runtime.computeCodePaths = function (arg?: any, extraIncludePackages?: string[], extraExcludePackages?: string[]): Promise<Map<string, pulumi.asset.Asset | pulumi.asset.Archive>> {
+        // Make sure that `epsagon` is included in the uploaded package.
+        let options: pulumi.runtime.CodePathOptions = arg;
+        if (arg) {
+            if (Array.isArray(arg)) {
+                options = {
+                    extraIncludePaths: arg,
+                    extraIncludePackages: [...(extraIncludePackages || []), "epsagon"],
+                    extraExcludePackages,
+                };
+            } else {
+                options.extraIncludePackages = [...(options.extraIncludePackages || []), "epsagon"];
+            }
+        }
+        return originComputeCodePaths(options);
     };
 }
 

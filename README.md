@@ -5,14 +5,15 @@ functions generated from JavaScript callbacks in the Pulumi program will automat
 
 ```javascript
 const aws = require("@pulumi/aws");
-const serverless = require("@pulumi/aws-serverless");
+const pulumi = require("@pulumi/pulumi");
 
 // Load the Pulumi Epsagon integration package
-require("@pulumi/epsagon");
+const epsagon = require("@pulumi/epsagon");
+epsagon.install(pulumi, { appName: "my-example" });
 
 // Create a bucket and a function to log new object uploads
 const bucket = new aws.s3.Bucket("my-bucket");
-serverless.bucket.onPut("onNewObject", bucket, async (ev) => console.log(ev));
+bucket.onObjectCreated("onNewObject", async (ev) => console.log(ev));
 exports.bucketName = bucket.bucket;
 ```
 
