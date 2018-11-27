@@ -1,7 +1,6 @@
 # Pulumi Epsagon integration
 
-This package provides Epsagon integration with Pulumi programs. When imported into a Pulumi program, any serverless
-functions generated from JavaScript callbacks in the Pulumi program will automatically be wrapped with Epsagon Lambda Wrapper.
+This package provides [Epsagon](https://epsagon.com/) integration with [Pulumi](https://www.pulumi.com/) programs. When imported into a Pulumi program, any serverless functions generated from JavaScript callbacks in the Pulumi program will automatically be wrapped with Epsagon Lambda Wrapper.
 
 ```javascript
 const aws = require("@pulumi/aws");
